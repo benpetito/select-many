@@ -1,8 +1,10 @@
 package modules.selectMany.domain;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+import modules.selectMany.Appointment.AppointmentExtension;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.impl.domain.AbstractPersistentBean;
@@ -14,7 +16,7 @@ import org.skyve.impl.domain.AbstractPersistentBean;
  */
 @XmlType
 @XmlRootElement
-public class Appointment extends AbstractPersistentBean {
+public abstract class Appointment extends AbstractPersistentBean {
 	/**
 	 * For Serialization
 	 * @hidden
@@ -26,6 +28,16 @@ public class Appointment extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "Appointment";
+
+	/** @hidden */
+	public static final String appointmentTimePropertyName = "appointmentTime";
+
+	/**
+	 * Appointment Time
+	 * <br/>
+	 * Select 1 (or more) times for your appointment
+	 **/
+	private String appointmentTime;
 
 	@Override
 	@XmlTransient
@@ -39,7 +51,7 @@ public class Appointment extends AbstractPersistentBean {
 		return Appointment.DOCUMENT_NAME;
 	}
 
-	public static Appointment newInstance() {
+	public static AppointmentExtension newInstance() {
 		try {
 			return CORE.getUser().getCustomer().getModule(MODULE_NAME).getDocument(CORE.getUser().getCustomer(), DOCUMENT_NAME).newInstance(CORE.getUser());
 		}
@@ -66,5 +78,23 @@ public class Appointment extends AbstractPersistentBean {
 	public boolean equals(Object o) {
 		return ((o instanceof Appointment) && 
 					this.getBizId().equals(((Appointment) o).getBizId()));
+	}
+
+	/**
+	 * {@link #appointmentTime} accessor.
+	 * @return	The value.
+	 **/
+	public String getAppointmentTime() {
+		return appointmentTime;
+	}
+
+	/**
+	 * {@link #appointmentTime} mutator.
+	 * @param appointmentTime	The new value.
+	 **/
+	@XmlElement
+	public void setAppointmentTime(String appointmentTime) {
+		preset(appointmentTimePropertyName, appointmentTime);
+		this.appointmentTime = appointmentTime;
 	}
 }

@@ -4,5 +4,12 @@
     <singularAlias>Appointment</singularAlias>
     <pluralAlias>Appointments</pluralAlias>
     <bizKey expression="Appointment"/>
-    <attributes/>
+    <attributes>
+    	<text name="appointmentTime">
+    		<displayName>Appointment Time</displayName>
+    		<description>Select 1 (or more) times for your appointment</description>
+    		<domain>variant</domain>
+    		<length>100</length>
+    	</text>
+    </attributes>
 </document>

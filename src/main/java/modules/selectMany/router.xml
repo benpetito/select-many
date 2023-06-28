@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<router xmlns="http://www.skyve.org/xml/router"
+			xsi:schemaLocation="http://www.skyve.org/xml/router ../../schemas/router.xsd"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<uxui name="external">
+		<!-- use a custom route for the page holding the select-many so we can specify a custom.xhtml -->
+		<route outcome="/test/selectMany.xhtml">
+			<criteria webAction="e" module="selectMany" document="Appointment"/>
+		</route>
+	</uxui>
+</router>
