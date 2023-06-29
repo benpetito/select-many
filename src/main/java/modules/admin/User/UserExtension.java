@@ -88,7 +88,7 @@ public class UserExtension extends User {
 	}
 
 	/**
-	 * Return the metadata user that is this user
+	 * Return the metadata user for this {@link User}.
 	 *
 	 * @return the metadata user that is this user
 	 */
@@ -156,6 +156,24 @@ public class UserExtension extends User {
 															null,
 															this);
 	}
+	
+	/**
+	 * Whether the currently logged in {@link org.skyve.metadata.user.User} is this {@link User}.
+	 * 
+	 * @return true if the logged in user is this {@link User}
+	 */
+	public boolean owningUser() {
+		return CORE.getPersistence().getUser().getId().equals(getBizId());
+	}
+
+	/**
+	 * Return a {@link UserProxy} from this {@link User}, if persisted, or null if not persisted.
+	 * 
+	 * @return A user proxy representing this user
+	 */
+	public UserProxyExtension toUserProxy() {
+		return CORE.getPersistence().retrieve(UserProxy.MODULE_NAME, UserProxy.DOCUMENT_NAME, getBizId());
+	}
 
 	/**
 	 * Upsert the user into the database.
@@ -205,29 +223,5 @@ public class UserExtension extends User {
 			bean.setBizUserId(bizUserId);
 			return true;
 		}
-	}
-	
-	/**
-	 * Return a user proxy from the user
-	 * 
-	 * @param user
-	 * @return
-	 */
-	public UserProxyExtension toUserProxy() {
-		UserProxyExtension result = UserProxy.newInstance();
-		result.setUserName(getUserName());
-		result.setCreatedDateTime(new DateTime());
-		result.setContact(getContact());
-		result.setInactive(getInactive());
-
-		return result;
-	}
-
-	/**
-	 * Whether the currently logged in user is this user
-	 * @return
-	 */
-	public boolean owningUser() {
-		return CORE.getPersistence().getUser().getId().equals(getBizId());
 	}
 }

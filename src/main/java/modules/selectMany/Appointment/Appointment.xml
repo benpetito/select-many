@@ -5,11 +5,22 @@
     <pluralAlias>Appointments</pluralAlias>
     <bizKey expression="Appointment"/>
     <attributes>
+    	<text name="location" required="true">
+    		<displayName>Appointment Location</displayName>
+    		<length>100</length>
+    	</text>
     	<text name="appointmentTime">
     		<displayName>Appointment Time</displayName>
     		<description>Select 1 (or more) times for your appointment</description>
     		<domain>variant</domain>
     		<length>100</length>
     	</text>
+    	<enum name="status">
+    		<displayName>Status</displayName>
+    		<values>
+    			<value code="Available"/>
+    			<value code="Booked"/>
+    		</values>
+    	</enum>
     </attributes>
 </document>

@@ -2,24 +2,36 @@
 <view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Appointment"
 		xmlns:c="http://www.skyve.org/xml/common" 
 		xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-		
-    <hbox shrinkWrap="height">
-        <form responsiveWidth="12" border="true">
-            <column responsiveWidth="3"/>
-            <column/>
-            <column responsiveWidth="3"/>
-            <row>
-                <item>
-                    <combo binding="appointmentTime">
-                    	<properties>
-                    		<c:property key="comboType">selectMany</c:property>
-                    	</properties>
-                    </combo>
-                </item>
-            </row>
-        </form>
-    </hbox>
-    <actions>
+	
+	<form responsiveWidth="12" border="false" widgetId="formLocation">
+	    <column responsiveWidth="3"/>
+	    <column/>
+	    <column responsiveWidth="3"/>
+	    <row>
+	    	<item>
+	    		<default binding="location"/>
+	    	</item>
+	    </row>
+    </form>
+    
+	<form responsiveWidth="12" border="false" widgetId="formSelectMany">
+	    <column responsiveWidth="3"/>
+	    <column/>
+	    <column responsiveWidth="3"/>
+	    <row>
+	        <item>
+	            <combo binding="appointmentTime">
+	            	<properties>
+	            		<c:property key="comboType">selectMany</c:property>
+	            	</properties>
+	            </combo>
+	        </item>
+	    </row>
+	</form>
+	
+	<component name="_status"/>
+	
+    <actions widgetId="selectManyActions">
         <defaults/>
     </actions>
 </view>

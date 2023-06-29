@@ -20,7 +20,13 @@
 		<property name="bizFlagComment" length="1024" />
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
+		<property name="location" length="100" />
 		<property name="appointmentTime" length="100" />
+		<property name="status" length="9">
+			<type name="Enum">
+				<param name="enumClass">modules.selectMany.domain.Appointment$Status</param>
+			</type>
+		</property>
 		<filter name="selectManyAppointmentNoneFilter" condition="1=0"/>
 		<filter name="selectManyAppointmentCustomerFilter" condition="bizCustomer=:customerParam"/>
 		<filter name="selectManyAppointmentDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
