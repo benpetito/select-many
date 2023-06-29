@@ -5,39 +5,71 @@
 		xmlns:f="http://java.sun.com/jsf/core"
 		xmlns:p="http://primefaces.org/ui"
 		xmlns:s="http://skyve.org/xml/ui"
-		dir="#{skyve.dir}">
+		dir="#{selectManyView.dir}">
 	<f:view contentType="text/html" encoding="UTF-8">
 		<f:metadata>
-			<f:viewParam name="a" value="#{skyve.webActionParameter}" />
-			<f:viewParam name="m" value="#{skyve.bizModuleParameter}" />
-			<f:viewParam name="d" value="#{skyve.bizDocumentParameter}" />
-			<f:viewParam name="q" value="#{skyve.queryNameParameter}" />
-			<f:viewParam name="i" value="#{skyve.bizIdParameter}" />
-			<f:viewParam name="b" value="#{skyve.bindingParameter}" />
-			<f:event type="preRenderView" listener="#{skyve.preRender}"/>
+			<f:viewParam name="a" value="#{selectManyView.webActionParameter}" />
+			<f:viewParam name="m" value="#{selectManyView.bizModuleParameter}" />
+			<f:viewParam name="d" value="#{selectManyView.bizDocumentParameter}" />
+			<f:viewParam name="q" value="#{selectManyView.queryNameParameter}" />
+			<f:viewParam name="i" value="#{selectManyView.bizIdParameter}" />
+			<f:viewParam name="b" value="#{selectManyView.bindingParameter}" />
+			<f:event type="preRenderView" listener="#{selectManyView.preRender}"/>
 		</f:metadata>
 		<p:importEnum type="org.skyve.web.WebAction" var="WebAction" allSuffix="ALL_ENUM_VALUES" />  
 		<p:importEnum type="org.skyve.web.UserAgentType" var="UserAgentType" allSuffix="ALL_ENUM_VALUES" />  
-		<ui:composition template="#{'/WEB-INF/pages/templates/'.concat(skyve.templateName).concat('/view.xhtml')}">
-			<ui:param name="bean" value="#{skyve}" />
+		<ui:composition template="#{'/WEB-INF/pages/templates/'.concat(selectManyView.templateName).concat('/view.xhtml')}">
+			<ui:param name="bean" value="#{selectManyView}" />
 			<ui:param name="showMenu" value="true" />
 			<ui:param name="resetMenu" value="false" />
-			<ui:param name="showSwitchMode" value="#{'phone' ne skyve.userAgentType}" />
+			<ui:param name="showSwitchMode" value="#{'phone' ne selectManyView.userAgentType}" />
 			<ui:param name="showLogout" value="true" />
 			<ui:define name="body">
-				<s:conversation managedBean="skyve" />
-				<s:csrfForm managedBean="skyve">
+				<s:conversation managedBean="selectManyView" />
+				<s:csrfForm managedBean="selectManyView">
 					<ui:include src="/WEB-INF/pages/includes/formFocusAndPush.xhtml">
-						<ui:param name="bean" value="#{skyve}" />
+						<ui:param name="bean" value="#{selectManyView}" />
 					</ui:include>
 					
-					<!-- customised -->
-					<!-- this page is copied straight out of external/edit.xhtml, the only change is specifying a componentBuilderClass -->
-					<s:view module="#{skyve.bizModuleParameter}"
-								document="#{skyve.bizDocumentParameter}"
-								managedBean="skyve"
-								componentBuilderClass="au.com.bizhub.CustomComponentBiulderChain"
-								update="@form" />
+					<!-- customised, based on external/edit.xhtml -->
+					<s:view module="#{selectManyView.bizModuleParameter}"
+								document="#{selectManyView.bizDocumentParameter}"
+								managedBean="selectManyView"
+								update="@form" widgetId="selectManyActions" />
+								
+					<p:panel>
+						<div class="ui-g">
+							<div class="ui-g-12">
+								<s:view module="#{selectManyView.bizModuleParameter}"
+										document="#{selectManyView.bizDocumentParameter}"
+										managedBean="selectManyView"
+										update="@form" widgetId="formLocation"
+										childStyleClass="ui-g-12" />
+							</div>
+						</div>
+									
+						<!-- select many widget direct insert -->
+						<div class="ui-g">
+							<div class="ui-g-12">
+								<h:panelGroup layout="block" styleClass="ui-g-12 ui-md-3 ui-lg-3 ui-xl-3 rightFormLabel">
+									<h:outputText value="Appointment Time(s):" />
+								</h:panelGroup>
+								<p:selectManyMenu value="#{selectManyView.selectedAppointmentTimes}" id="appointmentTimes" styleClass="ui-g-12 ui-md-6 ui-lg-6 ui-xl-6 left">
+						            <f:selectItems value="#{selectManyView.allAppointmentTimes}"/>
+						        </p:selectManyMenu>
+					        </div>
+				        </div>
+						
+						<div class="ui-g">
+							<div class="ui-g-12">
+								<s:view module="#{selectManyView.bizModuleParameter}"
+									document="#{selectManyView.bizDocumentParameter}"
+									managedBean="selectManyView"
+									update="@form" widgetId="formStatus" 
+									childStyleClass="ui-g-12" />
+							</div>
+						</div>
+					</p:panel>
 				</s:csrfForm>
 			</ui:define>
 		</ui:composition>
