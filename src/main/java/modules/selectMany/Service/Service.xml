@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://www.skyve.org/xml/document" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Service" xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+    <persistent name="SEL_Service"/>
+    <singularAlias>Service</singularAlias>
+    <pluralAlias>Services</pluralAlias>
+    <bizKey expression="{name}"/>
+    <attributes>
+    	<text name="name" required="true">
+    		<displayName>Name</displayName>
+    		<description>The name of the service</description>
+    		<length>100</length>
+    	</text>
+    	<text name="code">
+    		<displayName>Code</displayName>
+    		<description>The service code</description>
+    		<length>10</length>
+    	</text>
+    	<memo name="description">
+    		<displayName>Description</displayName>
+    		<index>none</index>
+    	</memo>
+    </attributes>
+</document>

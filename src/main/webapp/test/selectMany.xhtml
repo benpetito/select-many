@@ -69,6 +69,21 @@
 									childStyleClass="ui-g-12" />
 							</div>
 						</div>
+						
+						<!-- select checkbox menu widget direct insert -->
+						<div class="ui-g">
+							<div class="ui-g-12">
+								<h:panelGroup layout="block" styleClass="ui-g-12 ui-md-3 ui-lg-3 ui-xl-3 rightFormLabel">
+									<h:outputText value="Services Required:" />
+								</h:panelGroup>
+								<p:selectCheckboxMenu value="#{selectManyView.selectedServices}" id="servicesRequired"
+										emptyLabel="Please select a service..." updateLabel="true" 
+										multiple="true" filter="true" filterMatchMode="startsWith"
+										styleClass="ui-g-12 ui-md-6 ui-lg-6 ui-xl-6 left">
+                           			<f:selectItems value="#{selectManyView.allServicesString}"/>
+						        </p:selectCheckboxMenu>
+					        </div>
+				        </div>
 					</p:panel>
 				</s:csrfForm>
 			</ui:define>

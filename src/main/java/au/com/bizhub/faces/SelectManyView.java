@@ -8,9 +8,11 @@ import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.skyve.CORE;
 import org.skyve.impl.web.faces.beans.FacesView;
 
 import modules.selectMany.Appointment.AppointmentExtension;
+import modules.selectMany.domain.Service;
 
 @ManagedBean(name = "selectManyView")
 @ViewScoped
@@ -31,6 +33,21 @@ public class SelectManyView extends FacesView<AppointmentExtension> {
 	}
 
 	/**
+	 * Returns the list of all available services from the database.
+	 */
+	@SuppressWarnings("static-method")
+	public List<Service> getAllServices() {
+		return CORE.getPersistence().newDocumentQuery(Service.MODULE_NAME, Service.DOCUMENT_NAME).beanResults();
+	}
+
+	public List<String> getAllServicesString() {
+		return getAllServices()
+				.stream()
+				.map(s -> s.getName())
+				.collect(Collectors.toList());
+	}
+
+	/**
 	 * Gets the list of saved appointment times for this appointment
 	 * (comma separated list of strings), and converts it to a list for the Faces
 	 * select many component.
@@ -38,6 +55,22 @@ public class SelectManyView extends FacesView<AppointmentExtension> {
 	public List<String> getSelectedAppointmentTimes() {
 		if (getBean() != null) {
 			return getBean().getAppointmentTimeValues();
+		}
+		return Collections.emptyList();
+	}
+
+	/**
+	 * Gets the list of saved Services for this appointment and converts
+	 * them to a list of Strings.
+	 */
+	public List<String> getSelectedServices() {
+		// The Faces SelectCheckboxMenu component should be able to handle
+		// the conversion for display from the Skyve record, but using
+		// a basic string to get this working
+		if (getBean() != null) {
+			return getBean().getServices().stream()
+					.map(s -> s.getName())
+					.collect(Collectors.toList());
 		}
 		return Collections.emptyList();
 	}
@@ -51,6 +84,24 @@ public class SelectManyView extends FacesView<AppointmentExtension> {
 	public void setSelectedAppointmentTimes(List<String> selectedTimes) {
 		if (getBean() != null) {
 			getBean().setAppointmentTimeValues(selectedTimes);
+		}
+	}
+
+	/**
+	 * Sets the saved services onto the Appointment.
+	 * 
+	 * @param selectedServices The services selected by the user
+	 */
+	public void setSelectedServices(List<String> selected) {
+		if (getBean() != null) {
+			// this could be done more efficiently, this is just to demonstrate the process
+			// of updating the underlying Skyve bean
+			List<Service> selectedServices = getAllServices().stream()
+					.filter(s -> selected.contains(s.getName()))
+					.collect(Collectors.toList());
+			
+			getBean().getServices().clear();
+			getBean().getServices().addAll(selectedServices);
 		}
 	}
 }

@@ -22,5 +22,11 @@
     			<value code="Booked"/>
     		</values>
     	</enum>
+    	<collection name="services" type="aggregation">
+    		<displayName>Services Required</displayName>
+    		<description>Select 1 (or more) services for your appointment</description>
+    		<documentName>Service</documentName>
+    		<minCardinality>0</minCardinality>
+    	</collection>
     </attributes>
 </document>

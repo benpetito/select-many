@@ -13,6 +13,7 @@ import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.Enumeration;
 import org.skyve.impl.domain.AbstractPersistentBean;
+import org.skyve.impl.domain.ChangeTrackingArrayList;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
 import org.skyve.util.Util;
 
@@ -20,6 +21,7 @@ import org.skyve.util.Util;
  * Appointment
  * 
  * @depend - - - Status
+ * @navhas n services 0..n Service
  * @stereotype "persistent"
  */
 @XmlType
@@ -45,6 +47,9 @@ public abstract class Appointment extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String statusPropertyName = "status";
+
+	/** @hidden */
+	public static final String servicesPropertyName = "services";
 
 	/**
 	 * Status
@@ -131,6 +136,13 @@ public abstract class Appointment extends AbstractPersistentBean {
 	 * Status
 	 **/
 	private Status status;
+
+	/**
+	 * Services Required
+	 * <br/>
+	 * Select 1 (or more) services for your appointment
+	 **/
+	private List<Service> services = new ChangeTrackingArrayList<>("services", this);
 
 	@Override
 	@XmlTransient
@@ -225,5 +237,65 @@ public abstract class Appointment extends AbstractPersistentBean {
 	public void setStatus(Status status) {
 		preset(statusPropertyName, status);
 		this.status = status;
+	}
+
+	/**
+	 * {@link #services} accessor.
+	 * @return	The value.
+	 **/
+	@XmlElement
+	public List<Service> getServices() {
+		return services;
+	}
+
+	/**
+	 * {@link #services} accessor.
+	 * @param bizId	The bizId of the element in the list.
+	 * @return	The value of the element in the list.
+	 **/
+	public Service getServicesElementById(String bizId) {
+		return getElementById(services, bizId);
+	}
+
+	/**
+	 * {@link #services} mutator.
+	 * @param bizId	The bizId of the element in the list.
+	 * @param element	The new value of the element in the list.
+	 **/
+	public void setServicesElementById(String bizId, Service element) {
+		setElementById(services, element);
+	}
+
+	/**
+	 * {@link #services} add.
+	 * @param element	The element to add.
+	 **/
+	public boolean addServicesElement(Service element) {
+		return services.add(element);
+	}
+
+	/**
+	 * {@link #services} add.
+	 * @param index	The index in the list to add the element to.
+	 * @param element	The element to add.
+	 **/
+	public void addServicesElement(int index, Service element) {
+		services.add(index, element);
+	}
+
+	/**
+	 * {@link #services} remove.
+	 * @param element	The element to remove.
+	 **/
+	public boolean removeServicesElement(Service element) {
+		return services.remove(element);
+	}
+
+	/**
+	 * {@link #services} remove.
+	 * @param index	The index in the list to remove the element from.
+	 **/
+	public Service removeServicesElement(int index) {
+		return services.remove(index);
 	}
 }

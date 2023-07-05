@@ -4,12 +4,14 @@
     <homeDocument>Appointment</homeDocument>
     <documents>
         <document ref="Appointment"/>
+        <document ref="Service"/>
     </documents>
     <roles>
         <role name="Viewer">
             <description><![CDATA[Enough privileges to view Select Many documents.]]></description>
             <privileges>
                 <document name="Appointment" permission="_R__C"/>
+                <document name="Service" permission="_R__C"/>
             </privileges>
             <accesses/>
         </role>
@@ -17,6 +19,7 @@
             <description><![CDATA[Enough privileges to create and edit Select Many documents.]]></description>
             <privileges>
                 <document name="Appointment" permission="CRUDC"/>
+                <document name="Service" permission="CRUDC"/>
             </privileges>
             <accesses/>
         </role>
@@ -25,6 +28,9 @@
         <list document="Appointment" name="Appointments">
             <role name="Maintainer"/>
             <role name="Viewer"/>
+        </list>
+        <list document="Service" name="Services">
+            <role name="Maintainer"/>
         </list>
     </menu>
 </module>
