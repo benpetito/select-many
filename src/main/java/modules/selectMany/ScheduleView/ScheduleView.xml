@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://www.skyve.org/xml/document" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ScheduleView" xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+	<documentation>
+		Non-persistent Skyve view to show a PrimeFaces schedule component. Uses 
+		a custom xhtml page via the router.
+	</documentation>
+    <singularAlias>Schedule View</singularAlias>
+    <pluralAlias>Schedule View</pluralAlias>
+    <iconStyleClass>fa fa-regular fa-calendar-days</iconStyleClass>
+    <bizKey expression="ScheduleView"/>
+    <attributes/>
+</document>

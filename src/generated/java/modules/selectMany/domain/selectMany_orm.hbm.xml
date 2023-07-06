@@ -21,6 +21,7 @@
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
 		<property name="location" length="100" />
+		<property name="appointmentDate" type="DateOnly" />
 		<property name="appointmentTime" length="100" />
 		<property name="status" length="9">
 			<type name="Enum">

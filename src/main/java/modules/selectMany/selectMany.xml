@@ -4,6 +4,7 @@
     <homeDocument>Appointment</homeDocument>
     <documents>
         <document ref="Appointment"/>
+        <document ref="ScheduleView"/>
         <document ref="Service"/>
     </documents>
     <roles>
@@ -12,6 +13,7 @@
             <privileges>
                 <document name="Appointment" permission="_R__C"/>
                 <document name="Service" permission="_R__C"/>
+                <document name="ScheduleView" permission="_____"/>
             </privileges>
             <accesses/>
         </role>
@@ -20,6 +22,7 @@
             <privileges>
                 <document name="Appointment" permission="CRUDC"/>
                 <document name="Service" permission="CRUDC"/>
+                <document name="ScheduleView" permission="_____"/>
             </privileges>
             <accesses/>
         </role>
@@ -32,5 +35,9 @@
         <list document="Service" name="Services">
             <role name="Maintainer"/>
         </list>
+        <edit document="ScheduleView" name="Schedule">
+        	<role name="Maintainer"/>
+        	<role name="Viewer"/>
+        </edit>
     </menu>
 </module>

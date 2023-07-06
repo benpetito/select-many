@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:s="http://skyve.org/xml/ui"
+		dir="#{scheduleView.dir}">
+	<f:view contentType="text/html" encoding="UTF-8">
+		<f:metadata>
+			<f:viewParam name="a" value="#{scheduleView.webActionParameter}" />
+			<f:viewParam name="m" value="#{scheduleView.bizModuleParameter}" />
+			<f:viewParam name="d" value="#{scheduleView.bizDocumentParameter}" />
+			<f:viewParam name="q" value="#{scheduleView.queryNameParameter}" />
+			<f:viewParam name="i" value="#{scheduleView.bizIdParameter}" />
+			<f:viewParam name="b" value="#{scheduleView.bindingParameter}" />
+			<f:event type="preRenderView" listener="#{scheduleView.preRender}"/>
+		</f:metadata>
+		<p:importEnum type="org.skyve.web.WebAction" var="WebAction" allSuffix="ALL_ENUM_VALUES" />  
+		<p:importEnum type="org.skyve.web.UserAgentType" var="UserAgentType" allSuffix="ALL_ENUM_VALUES" />  
+		<ui:composition template="#{'/WEB-INF/pages/templates/'.concat(scheduleView.templateName).concat('/view.xhtml')}">
+			<ui:param name="bean" value="#{scheduleView}" />
+			<ui:param name="showMenu" value="true" />
+			<ui:param name="resetMenu" value="false" />
+			<ui:param name="showSwitchMode" value="#{'phone' ne scheduleView.userAgentType}" />
+			<ui:param name="showLogout" value="true" />
+			<ui:define name="body">
+				<s:conversation managedBean="scheduleView" />
+				<s:csrfForm managedBean="scheduleView">
+					<ui:include src="/WEB-INF/pages/includes/formFocusAndPush.xhtml">
+						<ui:param name="bean" value="#{scheduleView}" />
+					</ui:include>
+					
+					<!-- customised, based on external/edit.xhtml -->
+					<p:schedule id="schedule" value="#{scheduleView.eventModel}">
+			            <!-- <p:ajax event="dateSelect" listener="#{scheduleJava8View.onDateSelect}" update="eventDetails"
+			                    oncomplete="PF('eventDialog').show();"/>
+			            <p:ajax event="eventSelect" listener="#{scheduleJava8View.onEventSelect}" update="eventDetails"
+			                    oncomplete="PF('eventDialog').show();"/>
+			            <p:ajax event="eventMove" listener="#{scheduleJava8View.onEventMove}" update="messages"/>
+			            <p:ajax event="eventResize" listener="#{scheduleJava8View.onEventResize}" update="messages"/> -->
+			        </p:schedule>
+			        
+					<!-- ScheduleView edit.xml is not used, otherwise it would come in here -->
+					<!-- <s:view module="#{scheduleView.bizModuleParameter}"
+								document="#{scheduleView.bizDocumentParameter}"
+								managedBean="scheduleView"
+								update="@form" widgetId="selectManyActions" /> -->
+				</s:csrfForm>
+			</ui:define>
+		</ui:composition>
+	</f:view>
+</html>
+

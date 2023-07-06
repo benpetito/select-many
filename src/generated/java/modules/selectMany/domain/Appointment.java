@@ -6,15 +6,20 @@ import java.util.stream.Stream;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import modules.selectMany.Appointment.AppointmentExtension;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
+import org.skyve.domain.types.DateOnly;
 import org.skyve.domain.types.Enumeration;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.impl.domain.ChangeTrackingArrayList;
+import org.skyve.impl.domain.types.jaxb.DateOnlyMapper;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
+import org.skyve.util.ExpressionEvaluator;
 import org.skyve.util.Util;
 
 /**
@@ -41,6 +46,9 @@ public abstract class Appointment extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String locationPropertyName = "location";
+
+	/** @hidden */
+	public static final String appointmentDatePropertyName = "appointmentDate";
 
 	/** @hidden */
 	public static final String appointmentTimePropertyName = "appointmentTime";
@@ -126,6 +134,11 @@ public abstract class Appointment extends AbstractPersistentBean {
 	private String location;
 
 	/**
+	 * Appointment Date
+	 **/
+	private DateOnly appointmentDate = (DateOnly) ExpressionEvaluator.evaluate("{DATE}", this);
+
+	/**
 	 * Appointment Time
 	 * <br/>
 	 * Select 1 (or more) times for your appointment
@@ -201,6 +214,26 @@ public abstract class Appointment extends AbstractPersistentBean {
 	public void setLocation(String location) {
 		preset(locationPropertyName, location);
 		this.location = location;
+	}
+
+	/**
+	 * {@link #appointmentDate} accessor.
+	 * @return	The value.
+	 **/
+	public DateOnly getAppointmentDate() {
+		return appointmentDate;
+	}
+
+	/**
+	 * {@link #appointmentDate} mutator.
+	 * @param appointmentDate	The new value.
+	 **/
+	@XmlElement
+	@XmlSchemaType(name = "date")
+	@XmlJavaTypeAdapter(DateOnlyMapper.class)
+	public void setAppointmentDate(DateOnly appointmentDate) {
+		preset(appointmentDatePropertyName, appointmentDate);
+		this.appointmentDate = appointmentDate;
 	}
 
 	/**

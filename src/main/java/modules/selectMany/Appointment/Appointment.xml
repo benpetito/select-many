@@ -9,6 +9,10 @@
     		<displayName>Appointment Location</displayName>
     		<length>100</length>
     	</text>
+    	<date name="appointmentDate" required="true">
+    		<displayName>Appointment Date</displayName>
+    		<defaultValue>{DATE}</defaultValue>
+    	</date>
     	<text name="appointmentTime">
     		<displayName>Appointment Time</displayName>
     		<description>Select 1 (or more) times for your appointment</description>

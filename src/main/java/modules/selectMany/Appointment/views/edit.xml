@@ -12,6 +12,11 @@
 	    		<default binding="location"/>
 	    	</item>
 	    </row>
+	    <row>
+	    	<item>
+	    		<default binding="appointmentDate"/>
+	    	</item>
+	    </row>
     </form>
     
 	<form responsiveWidth="12" border="false" widgetId="formSelectMany">
