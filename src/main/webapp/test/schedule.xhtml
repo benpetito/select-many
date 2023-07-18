@@ -32,13 +32,13 @@
 					</ui:include>
 					
 					<!-- customised, based on external/edit.xhtml -->
-					<p:schedule id="schedule" value="#{scheduleView.eventModel}">
-			            <!-- <p:ajax event="dateSelect" listener="#{scheduleJava8View.onDateSelect}" update="eventDetails"
+					<p:schedule id="schedule" value="#{scheduleView.eventModel}" widgetVar="demoSchedule">
+			            <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails"
 			                    oncomplete="PF('eventDialog').show();"/>
-			            <p:ajax event="eventSelect" listener="#{scheduleJava8View.onEventSelect}" update="eventDetails"
+			            <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails"
 			                    oncomplete="PF('eventDialog').show();"/>
-			            <p:ajax event="eventMove" listener="#{scheduleJava8View.onEventMove}" update="messages"/>
-			            <p:ajax event="eventResize" listener="#{scheduleJava8View.onEventResize}" update="messages"/> -->
+			            <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" update="messages"/>
+			            <!-- <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" update="messages"/> -->
 			        </p:schedule>
 			        
 					<!-- ScheduleView edit.xml is not used, otherwise it would come in here -->
@@ -46,6 +46,31 @@
 								document="#{scheduleView.bizDocumentParameter}"
 								managedBean="scheduleView"
 								update="@form" widgetId="selectManyActions" /> -->
+						
+					<!-- add/edit event dialog -->		
+					<p:dialog widgetVar="eventDialog" header="Event Details" showEffect="fade" hideEffect="fade">
+			            <h:panelGrid id="eventDetails" columns="2" cellpadding="7">
+			                <p:outputLabel for="eventTitle" value="Titles" styleClass="font-bold"/>
+			                <p:inputText id="eventTitle" value="#{scheduleView.event.title}" required="true"/>
+			
+			                <p:outputLabel for="from" value="From" styleClass="font-bold"/>
+			                <p:datePicker id="from" value="#{scheduleView.event.startDate}" pattern="dd/MM/yyyy"
+			                              showTime="true" appendTo="@(body)"/>
+			
+			                <p:outputLabel for="to" value="To" styleClass="font-bold"/>
+			                <p:datePicker id="to" value="#{scheduleView.event.endDate}" pattern="dd/MM/yyyy"
+			                              showTime="true" appendTo="@(body)"/>
+			
+			                <p:outputLabel for="allDay" value="All Day" styleClass="font-bold"/>
+			                <h:selectBooleanCheckbox id="allDay" value="#{scheduleView.event.allDay}"/>
+			            </h:panelGrid>
+			
+			            <div class="flex justify-content-between mt-3">
+			                <p:commandButton type="reset" value="Reset" styleClass="font-bold ui-button-outlined"/>
+			                <p:commandButton id="addButton" value="Save" action="#{scheduleView.addEvent}"
+			                            oncomplete="PF('demoSchedule').update();PF('eventDialog').hide();"/>
+			            </div>
+			        </p:dialog>
 				</s:csrfForm>
 			</ui:define>
 		</ui:composition>
