@@ -1,10 +1,14 @@
-# Select Many Widget Skyve Example
+# Select Many and Schedule Widgets Skyve Example
+
+## Select Many Menu
 
 This is an example Skyve project which contains a single non-admin module view, Appointment, to demonstrate the ability to include a custom PrimeFaces component in a Skyve application using the responsive renderer.
 
 ![Select Many Example](docs/images/appointment.png)
 
-## Steps Required
+The Appointment view demonstrates the use of the [PrimeFaces select many menu](https://www.primefaces.org/showcase/ui/input/manyMenu.xhtml?jfwid=83789) component to allow multiple appointment times to be selected from the list of available times.
+
+### Steps Required
 
 The customisations to this project required to make this work:
 
@@ -13,6 +17,12 @@ The customisations to this project required to make this work:
 1. The `selectMany.xhtml` page uses the `s:view` element to insert parts of the Skyve edit view into the page, specifying the `widgetId` attribute to identify the part of the view to be inserted. This allows the page to be constructed and include the custom PrimeFaces component in the correct location.
 1. The selectMany module `router.xml` defines a route to the custom xhtml page when the Appointment document is being requested. This is what makes Skyve load the custom xhtml page instead of the standard edit page.
 1. A backing bean, [SelectManyView.java](src/main/java/au/com/bizhub/faces/SelectManyView.java) is used by the `selectMany.xhtml` page by specifying the managed bean name in the `s:view` element. This backing bean is responsible for providing data for the selected Appointment document to the custom PrimeFaces component.
+
+## Select Many Checkbox Component
+
+![Schedule Example](docs/images/select-many-checkbox.png)
+
+An example implementation of the [PrimeFaces select many checkbox widget](https://www.primefaces.org/showcase/ui/input/manyCheckbox.xhtml?jfwid=83789) is also included on the Appointment page in this application. Including this in your project is the same as following the [steps required](#steps-required) as per the Select Many Menu component above.
 
 ## Schedule Component
 
