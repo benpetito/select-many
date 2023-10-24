@@ -36,8 +36,8 @@
             <role name="Maintainer"/>
         </list>
         <edit document="ScheduleView" name="Schedule">
-        	<role name="Maintainer"/>
-        	<role name="Viewer"/>
+            <role name="Maintainer"/>
+            <role name="Viewer"/>
         </edit>
     </menu>
 </module>

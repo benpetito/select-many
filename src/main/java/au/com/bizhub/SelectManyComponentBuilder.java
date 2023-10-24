@@ -120,7 +120,7 @@ public class SelectManyComponentBuilder extends ResponsiveComponentBuilder {
 				formDisabled);
 		// Do not default pixel width to 100% as it causes renderering issues on the drop button on the end.
 		// The control sets its width by default based on the font metrics of the drop-down values.
-		setSize(result, null, pixelWidth, null, null, null, null, null);
+		setSizeAndTextAlignStyle(result, null, null, pixelWidth, null, null, null, null, null, null);
 		result.setConverter(new SelectItemsBeanConverter());
 		return result;
 	}

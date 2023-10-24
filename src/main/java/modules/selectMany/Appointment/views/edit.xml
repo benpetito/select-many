@@ -17,6 +17,15 @@
 	    		<default binding="appointmentDate"/>
 	    	</item>
 	    </row>
+	    <row>
+	    	<item>
+	    		<textField binding="appointmentDateTime">
+	    			<onChangedHandlers>
+	    				<rerender clientValidation="false"/>
+	    			</onChangedHandlers>
+	    		</textField>
+	    	</item>
+	    </row>
     </form>
     
 	<form responsiveWidth="12" border="false" widgetId="formSelectMany">

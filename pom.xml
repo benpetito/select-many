@@ -15,7 +15,7 @@
 	<properties>
 		<finalName>${project.artifactId}</finalName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<skyve.version>8.2.5</skyve.version>
+		<skyve.version>8.3.0</skyve.version>
 		<build.number>${project.version}</build.number>
 		<forkCount>2</forkCount>
 		<maven.javadoc.skip>true</maven.javadoc.skip>

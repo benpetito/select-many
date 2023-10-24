@@ -32,6 +32,7 @@
 			<key column="owner_id" foreign-key="FK_SEL_Appointment_services_owner_id" />
 			<many-to-many entity-name="selectManyService" foreign-key="FK_SEL_Appointment_services_element_id" column="element_id" />
 		</bag>
+		<property name="appointmentDateTime" type="DateTime" />
 		<filter name="selectManyAppointmentNoneFilter" condition="1=0"/>
 		<filter name="selectManyAppointmentCustomerFilter" condition="bizCustomer=:customerParam"/>
 		<filter name="selectManyAppointmentDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
