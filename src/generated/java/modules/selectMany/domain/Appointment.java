@@ -14,12 +14,10 @@ import modules.selectMany.Appointment.AppointmentExtension;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.DateOnly;
-import org.skyve.domain.types.DateTime;
 import org.skyve.domain.types.Enumeration;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.impl.domain.ChangeTrackingArrayList;
 import org.skyve.impl.domain.types.jaxb.DateOnlyMapper;
-import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
 import org.skyve.util.ExpressionEvaluator;
 import org.skyve.util.Util;
@@ -60,9 +58,6 @@ public abstract class Appointment extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String servicesPropertyName = "services";
-
-	/** @hidden */
-	public static final String appointmentDateTimePropertyName = "appointmentDateTime";
 
 	/**
 	 * Status
@@ -161,11 +156,6 @@ public abstract class Appointment extends AbstractPersistentBean {
 	 * Select 1 (or more) services for your appointment
 	 **/
 	private List<Service> services = new ChangeTrackingArrayList<>("services", this);
-
-	/**
-	 * Date/Time
-	 **/
-	private DateTime appointmentDateTime;
 
 	@Override
 	@XmlTransient
@@ -340,25 +330,5 @@ public abstract class Appointment extends AbstractPersistentBean {
 	 **/
 	public Service removeServicesElement(int index) {
 		return services.remove(index);
-	}
-
-	/**
-	 * {@link #appointmentDateTime} accessor.
-	 * @return	The value.
-	 **/
-	public DateTime getAppointmentDateTime() {
-		return appointmentDateTime;
-	}
-
-	/**
-	 * {@link #appointmentDateTime} mutator.
-	 * @param appointmentDateTime	The new value.
-	 **/
-	@XmlElement
-	@XmlSchemaType(name = "dateTime")
-	@XmlJavaTypeAdapter(DateTimeMapper.class)
-	public void setAppointmentDateTime(DateTime appointmentDateTime) {
-		preset(appointmentDateTimePropertyName, appointmentDateTime);
-		this.appointmentDateTime = appointmentDateTime;
 	}
 }

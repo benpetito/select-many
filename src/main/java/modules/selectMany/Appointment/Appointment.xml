@@ -32,8 +32,5 @@
     		<documentName>Service</documentName>
     		<minCardinality>0</minCardinality>
     	</collection>
-    	<dateTime name="appointmentDateTime">
-    		<displayName>Date/Time</displayName>
-    	</dateTime>
-    </attributes>
+	</attributes>
 </document>
