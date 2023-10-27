@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://www.skyve.org/xml/document"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	name="MedAppointment"
+	xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+	<persistent name="SEL_MedAppointment" />
+	<singularAlias>MedAppointment</singularAlias>
+	<pluralAlias>medappointments</pluralAlias>
+	<bizKey expression="MedAppointment" />
+	<attributes>
+		<text name="title">
+			<displayName>Title</displayName>
+			<length>200</length>
+		</text>
+		<dateTime name="startDateTime" required="true">
+			<displayName>Start Date Time</displayName>			
+		</dateTime>
+		<dateTime name="endDateTime">
+			<displayName>End Date Time</displayName>
+		</dateTime>
+		<enum name="status">
+			<displayName>Status</displayName>
+			<values>
+				<value code="Available" />
+				<value code="Booked" />
+				<value code="Cancelled" />
+			</values>
+		</enum>
+		<integer name="doctorId">
+			<displayName>Doctor Id</displayName>
+		</integer>
+	</attributes>
+</document>

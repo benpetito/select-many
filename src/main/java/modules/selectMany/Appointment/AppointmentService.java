@@ -60,6 +60,8 @@ public class AppointmentService {
 	 * Returns all appointments.
 	 */
 	public List<AppointmentExtension> getAllAppointments() {
+		if(persistence == null )
+			persistence = CORE.getPersistence();
 		return persistence.newDocumentQuery(Appointment.MODULE_NAME, Appointment.DOCUMENT_NAME).beanResults();
 	}
 

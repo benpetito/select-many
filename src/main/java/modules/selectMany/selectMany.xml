@@ -4,6 +4,7 @@
     <homeDocument>Appointment</homeDocument>
     <documents>
         <document ref="Appointment"/>
+        <document ref="MedAppointment"/>
         <document ref="ScheduleView"/>
         <document ref="Service"/>
     </documents>
@@ -12,6 +13,7 @@
             <description><![CDATA[Enough privileges to view Select Many documents.]]></description>
             <privileges>
                 <document name="Appointment" permission="_R__C"/>
+                <document name="MedAppointment" permission="_R__C"/>
                 <document name="Service" permission="_R__C"/>
                 <document name="ScheduleView" permission="_____"/>
             </privileges>
@@ -21,6 +23,7 @@
             <description><![CDATA[Enough privileges to create and edit Select Many documents.]]></description>
             <privileges>
                 <document name="Appointment" permission="CRUDC"/>
+                <document name="MedAppointment" permission="CRUDC"/>
                 <document name="Service" permission="CRUDC"/>
                 <document name="ScheduleView" permission="_____"/>
             </privileges>

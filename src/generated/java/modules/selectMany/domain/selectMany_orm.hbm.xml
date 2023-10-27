@@ -38,6 +38,30 @@
 		<filter name="selectManyAppointmentUserIdFilter" condition="bizUserId=:userIdParam"/>
 	</class>
 
+	<class name="modules.selectMany.MedAppointment.MedAppointmentExtension" table="SEL_MedAppointment" entity-name="selectManyMedAppointment">
+		<id name="bizId" length="36" />
+		<version name="bizVersion" unsaved-value="null" />
+		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
+		<property name="bizKey" length="1024" not-null="true" />
+		<property name="bizCustomer" length="50" not-null="true" />
+		<property name="bizFlagComment" length="1024" />
+		<property name="bizDataGroupId" length="36" />
+		<property name="bizUserId" length="36" not-null="true" />
+		<property name="title" length="200" />
+		<property name="startDateTime" type="DateTime" />
+		<property name="endDateTime" type="DateTime" />
+		<property name="status" length="9">
+			<type name="Enum">
+				<param name="enumClass">modules.selectMany.domain.MedAppointment$Status</param>
+			</type>
+		</property>
+		<property name="doctorId" />
+		<filter name="selectManyMedAppointmentNoneFilter" condition="1=0"/>
+		<filter name="selectManyMedAppointmentCustomerFilter" condition="bizCustomer=:customerParam"/>
+		<filter name="selectManyMedAppointmentDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
+		<filter name="selectManyMedAppointmentUserIdFilter" condition="bizUserId=:userIdParam"/>
+	</class>
+
 	<class name="modules.selectMany.domain.Service" table="SEL_Service" entity-name="selectManyService">
 		<id name="bizId" length="36" />
 		<version name="bizVersion" unsaved-value="null" />
@@ -64,6 +88,16 @@
 		<filter-param name="dataGroupIdParam" type="string"/>
 	</filter-def>
 	<filter-def name="selectManyAppointmentUserIdFilter">
+		<filter-param name="userIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="selectManyMedAppointmentNoneFilter" />
+	<filter-def name="selectManyMedAppointmentCustomerFilter">
+		<filter-param name="customerParam" type="string"/>
+	</filter-def>
+	<filter-def name="selectManyMedAppointmentDataGroupIdFilter">
+		<filter-param name="dataGroupIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="selectManyMedAppointmentUserIdFilter">
 		<filter-param name="userIdParam" type="string"/>
 	</filter-def>
 	<filter-def name="selectManyServiceNoneFilter" />

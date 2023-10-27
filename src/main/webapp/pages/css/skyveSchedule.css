@@ -1,0 +1,6 @@
+.cancelled{
+    background-color : red !important;
+}
+.booked{
+   background-color : green !important;
+ }

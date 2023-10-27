@@ -1,79 +1,149 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:ui="http://java.sun.com/jsf/facelets"
-		xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:f="http://java.sun.com/jsf/core"
-		xmlns:p="http://primefaces.org/ui"
-		xmlns:s="http://skyve.org/xml/ui"
-		dir="#{scheduleView.dir}">
-	<f:view contentType="text/html" encoding="UTF-8">
-		<f:metadata>
-			<f:viewParam name="a" value="#{scheduleView.webActionParameter}" />
-			<f:viewParam name="m" value="#{scheduleView.bizModuleParameter}" />
-			<f:viewParam name="d" value="#{scheduleView.bizDocumentParameter}" />
-			<f:viewParam name="q" value="#{scheduleView.queryNameParameter}" />
-			<f:viewParam name="i" value="#{scheduleView.bizIdParameter}" />
-			<f:viewParam name="b" value="#{scheduleView.bindingParameter}" />
-			<f:event type="preRenderView" listener="#{scheduleView.preRender}"/>
-		</f:metadata>
-		<p:importEnum type="org.skyve.web.WebAction" var="WebAction" allSuffix="ALL_ENUM_VALUES" />  
-		<p:importEnum type="org.skyve.web.UserAgentType" var="UserAgentType" allSuffix="ALL_ENUM_VALUES" />  
-		<ui:composition template="#{'/WEB-INF/pages/templates/'.concat(scheduleView.templateName).concat('/view.xhtml')}">
-			<ui:param name="bean" value="#{scheduleView}" />
-			<ui:param name="showMenu" value="true" />
-			<ui:param name="resetMenu" value="false" />
-			<ui:param name="showSwitchMode" value="#{'phone' ne scheduleView.userAgentType}" />
-			<ui:param name="showLogout" value="true" />
-			<ui:define name="body">
-				<s:conversation managedBean="scheduleView" />
-				<s:csrfForm managedBean="scheduleView">
-					<ui:include src="/WEB-INF/pages/includes/formFocusAndPush.xhtml">
-						<ui:param name="bean" value="#{scheduleView}" />
-					</ui:include>
-					
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:s="http://skyve.org/xml/ui"
+	dir="#{scheduleView.dir}">
+	<h:head>
+<h:outputStylesheet library="css" name="skyveSchedule.css"></h:outputStylesheet>
+	</h:head>
+<f:view contentType="text/html" encoding="UTF-8">
+	<f:metadata>
+		<f:viewParam name="a" value="#{scheduleView.webActionParameter}" />
+		<f:viewParam name="m" value="#{scheduleView.bizModuleParameter}" />
+		<f:viewParam name="d" value="#{scheduleView.bizDocumentParameter}" />
+		<f:viewParam name="q" value="#{scheduleView.queryNameParameter}" />
+		<f:viewParam name="i" value="#{scheduleView.bizIdParameter}" />
+		<f:viewParam name="b" value="#{scheduleView.bindingParameter}" />
+		<f:event type="preRenderView" listener="#{scheduleView.preRender}" />
+	</f:metadata>
+	<p:importEnum type="org.skyve.web.WebAction" var="WebAction"
+		allSuffix="ALL_ENUM_VALUES" />
+	<p:importEnum type="org.skyve.web.UserAgentType" var="UserAgentType"
+		allSuffix="ALL_ENUM_VALUES" />
+	<ui:composition
+		template="#{'/WEB-INF/pages/templates/'.concat(scheduleView.templateName).concat('/view.xhtml')}">
+		<ui:param name="bean" value="#{scheduleView}" />
+		<ui:param name="showMenu" value="true" />
+		<ui:param name="resetMenu" value="false" />
+		<ui:param name="showSwitchMode"
+			value="#{'phone' ne scheduleView.userAgentType}" />
+		<ui:param name="showLogout" value="true" />
+		<ui:define name="body">
+			<s:conversation managedBean="scheduleView" />
+			<s:csrfForm managedBean="scheduleView" id="fullForm">
+				<ui:include src="/WEB-INF/pages/includes/formFocusAndPush.xhtml">
+					<ui:param name="bean" value="#{scheduleView}" />
+				</ui:include>
+
+				<p:commandButton update="buttonbar,schedules" value="Previous" id="btnPrevious"
+					action="#{scheduleView.onPreviousClick}">
+					<!-- <f:ajax render="PF('1').jqId;" execute="@this" /> -->
+				</p:commandButton>
+				<h:panelGroup id="buttonbar">
+				<p:datePicker value="#{scheduleView.bookingDate}"
+					showButtonBar="true" />
+					</h:panelGroup>
+				<p:commandButton update="buttonbar,schedules" value="Next" id="btnNext"
+					action="#{scheduleView.onNextClick}">
+					<!-- <f:ajax render="PF('1').jqId;" execute="@this" /> -->
+				</p:commandButton>
+
+
+
+				<h:panelGroup id="schedules">
+
+
+					<br />
+					<br />
 					<!-- customised, based on external/edit.xhtml -->
-					<p:schedule id="schedule" value="#{scheduleView.eventModel}" widgetVar="demoSchedule">
-			            <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails"
-			                    oncomplete="PF('eventDialog').show();"/>
-			            <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails"
-			                    oncomplete="PF('eventDialog').show();"/>
-			            <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" update="messages"/>
-			            <!-- <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" update="messages"/> -->
-			        </p:schedule>
-			        
-					<!-- ScheduleView edit.xml is not used, otherwise it would come in here -->
-					<!-- <s:view module="#{scheduleView.bizModuleParameter}"
+					<table
+						style="height: 600; display: block; overflow-x: auto; white-space: nowrap;">
+						<tr>
+							<ui:repeat value="#{scheduleView.eventModels}" var="eventModel">
+								<td align="center"
+									style="border: 1px; border-style: solid; background-color: yellow"><br />doctor
+									John Smith - <br /> <h:outputText
+										value="#{eventModel.doctorName}" /><br /></td>
+							</ui:repeat>
+
+						</tr>
+						<tr>
+							<ui:repeat value="#{scheduleView.eventModels}" var="eventModel"
+								varStatus="eventModelIteration">
+								<td><p:schedule centerHeaderTemplate="" style="width:200px"
+										value="#{eventModel}"
+										extender="initSchedule" dayHeaders="false" view="timeGridDay"
+										rightHeaderTemplate="" showHeader="false" height="1300px"
+										allDaySlot="false" slotDuration="00:15:00" minTime="08:00:00"
+										maxTime="20:00:00" widgetVar="#{eventModel.id}"
+										initialDate="#{scheduleView.bookingDate}">
+										<p:ajax event="dateSelect"
+											listener="#{scheduleView.onDateSelect}" update="eventDetails" process="@this"
+											oncomplete="PF('eventDialog').show();" />
+										<p:ajax event="eventSelect"
+											listener="#{scheduleView.onEventSelect}"
+											update="eventDetails" oncomplete="PF('eventDialog').show();" />
+										<p:ajax event="eventMove"
+											listener="#{scheduleView.onEventMove}" update="messages" />
+										<!-- <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" update="messages"/> -->
+									</p:schedule></td>
+							</ui:repeat>
+						</tr>
+
+					</table>
+<p:remoteCommand id="deleteEvent" name="deleteEvent"
+                             actionListener="#{scheduleView.onEventDelete}" process="@this"
+                             update="@none" oncomplete="PF('schedules').update()">
+            </p:remoteCommand>
+					<h:outputScript>
+			        function initSchedule() {
+			         // Get the PrimeFaces Schedule widget
+    //console.log(this);
+    // Find and modify the timeslot elements
+    this.jq.find('.fc-slats td').css('background-color', 'orange !important');
+}
+	    </h:outputScript>
+				</h:panelGroup>
+				<!-- ScheduleView edit.xml is not used, otherwise it would come in here -->
+				<!-- <s:view module="#{scheduleView.bizModuleParameter}"
 								document="#{scheduleView.bizDocumentParameter}"
 								managedBean="scheduleView"
 								update="@form" widgetId="selectManyActions" /> -->
+
+				<!-- add/edit event dialog -->
+				<p:dialog widgetVar="eventDialog" header="Event Details"
+					showEffect="fade" hideEffect="fade">
+					<h:panelGrid id="eventDetails" columns="2" cellpadding="7">
 						
-					<!-- add/edit event dialog -->		
-					<p:dialog widgetVar="eventDialog" header="Event Details" showEffect="fade" hideEffect="fade">
-			            <h:panelGrid id="eventDetails" columns="2" cellpadding="7">
-			                <p:outputLabel for="eventTitle" value="Titles" styleClass="font-bold"/>
-			                <p:inputText id="eventTitle" value="#{scheduleView.event.title}" required="true"/>
-			
-			                <p:outputLabel for="from" value="From" styleClass="font-bold"/>
-			                <p:datePicker id="from" value="#{scheduleView.event.startDate}" pattern="dd/MM/yyyy"
-			                              showTime="true" appendTo="@(body)"/>
-			
-			                <p:outputLabel for="to" value="To" styleClass="font-bold"/>
-			                <p:datePicker id="to" value="#{scheduleView.event.endDate}" pattern="dd/MM/yyyy"
-			                              showTime="true" appendTo="@(body)"/>
-			
-			                <p:outputLabel for="allDay" value="All Day" styleClass="font-bold"/>
-			                <h:selectBooleanCheckbox id="allDay" value="#{scheduleView.event.allDay}"/>
-			            </h:panelGrid>
-			
-			            <div class="flex justify-content-between mt-3">
-			                <p:commandButton type="reset" value="Reset" styleClass="font-bold ui-button-outlined"/>
-			                <p:commandButton id="addButton" value="Save" action="#{scheduleView.addEvent}"
-			                            oncomplete="PF('demoSchedule').update();PF('eventDialog').hide();"/>
-			            </div>
-			        </p:dialog>
-				</s:csrfForm>
-			</ui:define>
-		</ui:composition>
-	</f:view>
+						<p:outputLabel for="eventTitle" value="Title"
+							styleClass="font-bold" />
+						<p:inputText id="eventTitle" value="#{scheduleView.event.title}"
+							required="true" />
+
+						<p:outputLabel for="from" value="From" styleClass="font-bold" />
+						<p:datePicker id="from" value="#{scheduleView.event.startDate}"
+							pattern="dd/MM/yyyy" showTime="true" appendTo="@(body)" />
+
+						<p:outputLabel for="to" value="To" styleClass="font-bold" />
+						<p:datePicker id="to" value="#{scheduleView.event.endDate}"
+							pattern="dd/MM/yyyy" showTime="true" appendTo="@(body)" />
+<h:inputHidden value="#{scheduleView.currentScheduleId}"></h:inputHidden>
+
+					</h:panelGrid>
+
+					<div class="flex justify-content-between mt-3">
+						<p:commandButton type="reset" value="Reset"
+							styleClass="font-bold ui-button-outlined" />
+						<p:commandButton id="addButton" value="Save"
+							action="#{scheduleView.addEvent}" update="schedules"
+							oncomplete="PF('eventDialog').hide();" />
+					</div>
+				</p:dialog>
+			</s:csrfForm>
+		</ui:define>
+	</ui:composition>
+</f:view>
 </html>
 
